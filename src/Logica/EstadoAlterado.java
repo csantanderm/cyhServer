@@ -4,13 +4,14 @@ package Logica;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class EstadoAlterado {
+public class EstadoAlterado implements Serializable {
     
     public static final int POSITIVO = 0;
     public static final int NEGATIVO = 1;

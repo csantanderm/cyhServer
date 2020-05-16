@@ -5,13 +5,14 @@
  */
 package Logica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Jessica
  */
-public class Personaje {
+public class Personaje implements Serializable{
     int id;
     String nombre;
     int clase;

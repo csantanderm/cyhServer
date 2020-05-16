@@ -6,11 +6,12 @@
 package Logica;
 
 import java.io.File;
+import java.io.Serializable;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 
-public class StackObjeto {
+public class StackObjeto implements Serializable{
     
     final public static int RECURSO = 0;
     final public static int CONSUMIBLE = 1;

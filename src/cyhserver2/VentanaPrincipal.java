@@ -157,18 +157,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable {
                 areaLog.append("Personaje 1 pide Crónica inicial.\n");
                 enviarCronica();
                 
-                socket.close();
             }
             
         } catch (IOException ex) {
             areaLog.append("Servidor sin construir/n");
         }
+        
     }
     
     public void enviarCronica(){
         Socket socket;
         try {
-            socket = new Socket("192.168.1.83",2001);
+            socket = new Socket("192.168.1.83",2000);
             ObjectOutputStream salida = new ObjectOutputStream(socket.getOutputStream());
             salida.writeObject(cronica);
             areaLog.append("Se envia la crónica inicial al personaje 1.\n");

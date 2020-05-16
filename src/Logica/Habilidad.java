@@ -5,8 +5,10 @@
  */
 package Logica;
 
+import java.io.Serializable;
 
-public class Habilidad {
+
+public class Habilidad implements Serializable{
     
     final static public int OFENSIVA = 0;
     final static public int DEFENSIVA = 1;

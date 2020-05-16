@@ -5,9 +5,10 @@
  */
 package Logica;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Enemigo {
+public class Enemigo implements Serializable{
     
     final static public int NORMAL = 0;
     final static public int MVP = 1;
