@@ -13,8 +13,9 @@ import javax.swing.ImageIcon;
 
 public class StackObjeto implements Serializable{
     
-    final public static int RECURSO = 0;
+    final public static int IMPORTANTE = 0;
     final public static int CONSUMIBLE = 1;
+    final public static int RECURSO = 2;
     
     int id;
     String nombre;

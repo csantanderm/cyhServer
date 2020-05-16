@@ -36,10 +36,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable {
         Thread hilo = new Thread(this);
         hilo.start();
         
-        new Personaje(1,"Anaxímenes", Clases.COMBATIENTE,13,5,4,5,1,2,2,Posiciones.NE2,"emblema_combatiente.png");
         ArrayList<Enemigo> enemigos = new ArrayList();
         enemigos.add(new Enemigo("Wargo1",10,6,5,6,1,2,1,Posiciones.O2,10,0,"piel_de_wargo.png"));
         ArrayList<Personaje> personajes = new ArrayList();
+        personajes.add(new Personaje(1,"Anaxímenes", Clases.COMBATIENTE,13,5,4,5,1,2,2,Posiciones.NE2,"emblema_combatiente.png"));
         personajes.add(new Personaje(2,"Caztiel",Clases.ACROBATA,16,2,4,2,7,1,2,Posiciones.N,"emblema_acrobata.png"));
         personajes.add(new Personaje(3,"Eilien",Clases.GUARDIA,16,2,4,2,7,1,2,Posiciones.N2,"emblema_guardia.png"));
         personajes.add(new Personaje(4,"Luna",Clases.ESTRATEGA,16,2,4,2,7,1,2,Posiciones.C,"emblema_estratega.png"));
