@@ -31,6 +31,7 @@ public class Habilidad implements Serializable{
     String descripcionCorta;
     String descripcionLarga;
     int enfriamiento;
+    int enfriamientoActual;
     int objetivo;
     String icono;
     
@@ -42,8 +43,14 @@ public class Habilidad implements Serializable{
         enfriamiento = cd;
         icono = rutaIcono;
         objetivo = objetivoH;
+        enfriamientoActual = 0;
     }
 
+    public int getEnfriamientoActual() {
+        return enfriamientoActual;
+    }
+
+    
     public int getEnfriamiento() {
         return enfriamiento;
     }
@@ -77,23 +84,6 @@ public class Habilidad implements Serializable{
         return descripcionLarga;
     }
 
-    public int getCooldown() {
-        return enfriamiento;
-    }
-    
-//    public String getStringTipo(){
-//        switch(tipo){
-//            case OFENSIVA:
-//                return "Ofensiva";
-//            case DEFENSIVA:
-//                return "Defensiva";
-//            case PASIVA:
-//                return "Pasiva";
-//            case ESTRATEGICA:
-//                return "Estratégica";   
-//        }
-//        return "";
-//    }
     public String getStringObjetivo(){
         switch(objetivo){
             case OBJETIVO_AUTO:

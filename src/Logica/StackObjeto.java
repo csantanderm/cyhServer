@@ -30,8 +30,8 @@ public class StackObjeto implements Serializable{
     public StackObjeto(int idObjeto, String nombreObj, int tipoObj, String desc, String iconArchivo){
         id=idObjeto;
         nombre=nombreObj;
-        cantidad=1;
-        cantidadMax=1;
+        cantidad=5;
+        cantidadMax=5;
         tipo=tipoObj;
         descripcionUso=desc;
         icono = iconArchivo;

@@ -6,9 +6,11 @@
 package cyhserver2;
 
 import Logica.Clases;
+import Logica.CreadorLog;
 import Logica.Cronica;
 import Logica.Enemigo;
 import Logica.Habilidad;
+import Logica.Log;
 import Logica.NieblasTerritorios;
 import Logica.Personaje;
 import Logica.Posiciones;
@@ -36,15 +38,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable {
         Thread hilo = new Thread(this);
         hilo.start();
         
-        ArrayList<Enemigo> enemigos = new ArrayList();
-        enemigos.add(new Enemigo("Wargo1",10,6,5,6,1,2,1,Posiciones.O2,10,0,"piel_de_wargo.png"));
-        ArrayList<Personaje> personajes = new ArrayList();
-        personajes.add(new Personaje(1,"Anaxímenes", Clases.COMBATIENTE,13,5,4,5,1,2,2,Posiciones.NE2,"emblema_combatiente.png"));
-        personajes.add(new Personaje(2,"Caztiel",Clases.ACROBATA,16,2,4,2,7,1,2,Posiciones.N,"emblema_acrobata.png"));
-        personajes.add(new Personaje(3,"Eilien",Clases.GUARDIA,16,2,4,2,7,1,2,Posiciones.N2,"emblema_guardia.png"));
-        personajes.add(new Personaje(4,"Luna",Clases.ESTRATEGA,16,2,4,2,7,1,2,Posiciones.C,"emblema_estratega.png"));
         
-        cronica = new Cronica(personajes, enemigos, NieblasTerritorios.CODIGOBLANCO, NieblasTerritorios.TERRITORIO_BOSQUENEGRO);
     }
 
     /**
@@ -154,9 +148,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable {
                 Socket socket = server.accept();
                 DataInputStream entrada = new DataInputStream(socket.getInputStream());
                 String mensaje = entrada.readUTF();
-                areaLog.append("Personaje 1 pide Crónica inicial.\n");
-                enviarCronica();
-                
+                String [] desglose = mensaje.split(">>");
+                switch(desglose[0]){
+                    case "cronica":
+                        areaLog.append("Personaje 1 pide Crónica inicial.\n");
+                        crearCronica();
+                        break;
+                    case "mover":
+                        
+                        String [] argumentos = desglose[1].split(",");
+                        areaLog.append("Personaje "+argumentos[0]+" pide moverse a la posicion "+argumentos[1]+".\n");
+                        moverPersonaje(argumentos[0],argumentos[1]);
+                }    
             }
             
         } catch (IOException ex) {
@@ -177,5 +180,37 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable {
             areaLog.append("No se pudo enviar la cronica al personaje1.\n");
         }
         
+    }
+    public void moverPersonaje(String idPersonaje, String nuevaPos){
+        int id = Integer.parseInt(idPersonaje);
+        int pos = Posiciones.getIntPosicion(nuevaPos);
+        
+        for (int i=0;i<cronica.getPersonajes().size();i++){
+            if (cronica.getPersonajes().get(i).getId()==id){
+                cronica.getPersonajes().get(i).setPosicion(pos);
+                Log log = CreadorLog.personajeSeMueve(cronica.getPersonajes().get(i).getNombre(), nuevaPos,true);
+                cronica.getPersonajes().get(i).getLogs().add(log);
+                break;
+            }
+        }
+        
+        enviarCronica();
+            
+    }
+    
+    public void crearCronica(){
+        ArrayList<Enemigo> enemigos = new ArrayList();
+        enemigos.add(new Enemigo("Wargo1",10,6,5,6,1,2,1,Posiciones.O2,10,0,"wargo.png"));
+        ArrayList<Personaje> personajes = new ArrayList();
+        personajes.add(new Personaje(1,"Anaxímenes", Clases.COMBATIENTE,13,5,4,5,1,2,2,Posiciones.NE2,"emblema_combatiente.png"));
+        personajes.add(new Personaje(2,"Caztiel",Clases.ACROBATA,16,2,4,2,7,1,2,Posiciones.N,"emblema_acrobata.png"));
+        personajes.add(new Personaje(3,"Eilien",Clases.GUARDIA,16,2,4,2,7,1,2,Posiciones.N2,"emblema_guardia.png"));
+        personajes.add(new Personaje(4,"Luna",Clases.ESTRATEGA,16,2,4,2,7,1,2,Posiciones.C,"emblema_estratega.png"));
+
+        cronica = new Cronica(personajes, enemigos, NieblasTerritorios.CODIGOBLANCO, NieblasTerritorios.TERRITORIO_BOSQUENEGRO);
+        
+        Log log = CreadorLog.crearBienvenida(cronica.getNiebla(), cronica.getTerritorio(), 1);
+        personajes.get(0).getLogs().add(log);
+        enviarCronica();
     }
 }

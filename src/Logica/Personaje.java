@@ -21,7 +21,7 @@ public class Personaje implements Serializable{
     int exp;
     boolean estaVivo;
     String icono;
-    String log;
+    
     
     int saludMax;
     int salud;
@@ -39,6 +39,7 @@ public class Personaje implements Serializable{
     int acciones;
     int posicion;
     
+    ArrayList<Log> logs;
     ArrayList<StackObjeto> objetos;
     ArrayList<Habilidad> habilidades;
     ArrayList<EstadoAlterado> estados;
@@ -72,7 +73,7 @@ public class Personaje implements Serializable{
         objetos = new ArrayList<StackObjeto>();
         objetos.add(new StackObjeto(0,"Orbe curativo",StackObjeto.CONSUMIBLE,"Cura 1 de salud.","objetos/orbe_curativo.png"));
         objetos.add(new StackObjeto(1,"Piel de wargo", StackObjeto.RECURSO,"Piel de pelo grueso.","objetos/piel_de_wargo.png"));
-        
+        objetos.add(new StackObjeto(0,"Orbe curativo",StackObjeto.CONSUMIBLE,"Cura 1 de salud.","objetos/orbe_curativo.png"));
         habilidades = new ArrayList<Habilidad>();
         habilidades.add(new Habilidad(0,"Pies ligeros",Habilidad.ESTRATEGICA,"Obtiene +1 de movimiento en este turno.aaa  soy asd skllals dooffooe asd asdjkhas asliasds dsf",3,"habilidades/pies_ligeros.png",0));
         
@@ -91,7 +92,7 @@ public class Personaje implements Serializable{
         estados.add(new EstadoAlterado(0,"Piel de piedra","La próxima vez que recibas daño, -1 al daño recibido.",0,"estados/quemadura.png"));
         estados.add(new EstadoAlterado(0,"Quemadura Nivel 1","Por cada accion o movimiento de tu personaje, -1 a la salud.",1,"estados/quemadura.png"));
         
-        log = "";
+        logs = new ArrayList<Log>();
         
         
     }
@@ -241,8 +242,8 @@ public class Personaje implements Serializable{
         return estaVivo;
     }
 
-    public String getLog() {
-        return log;
+    public ArrayList<Log> getLogs() {
+        return logs;
     }
     
     
