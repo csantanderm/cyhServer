@@ -47,6 +47,25 @@ public class CreadorLog {
         return log;
     }
     
+    public static Log personajeUsaObjeto(String nombrePj, String nombreObjeto, boolean usuario){
+        String color = "#2e6c80;";
+        String personaje = "<span style='color: "+color
+                    +" font-family:tahoma; display: inline-block; padding: 3px 10px; font-weight: bold;'>>>Narrador: </span> ";;
+        String mensaje="";
+        if (usuario){
+            mensaje = "<span style='color: "+color
+                    +" font-family:tahoma; display: inline-block; padding: 3px 10px;'>"
+                    +" Usas "+nombreObjeto+". Tu salud aumenta en 3.</span><br>";
+        }else{
+            mensaje = "<span style='color: "+color
+                    +" font-family:tahoma; display: inline-block; padding: 3px 10px;'>"
+                    + nombrePj +" usa "+nombreObjeto+". Su salud aumenta en 3.</span><br>";
+            }
+        
+        Log log = new Log(mensaje,personaje);
+        return log;
+    }
+    
     public static String getNombreTerritorio(int territorio){
         switch(territorio){
             case NieblasTerritorios.TERRITORIO_BOSQUENEGRO:

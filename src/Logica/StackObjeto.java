@@ -27,14 +27,8 @@ public class StackObjeto implements Serializable{
     String icono;
     
     
-    public StackObjeto(int idObjeto, String nombreObj, int tipoObj, String desc, String iconArchivo){
-        id=idObjeto;
-        nombre=nombreObj;
-        cantidad=5;
-        cantidadMax=5;
-        tipo=tipoObj;
-        descripcionUso=desc;
-        icono = iconArchivo;
+    public StackObjeto(){
+        
     }
 
     public String getIcono() {
@@ -78,6 +72,39 @@ public class StackObjeto implements Serializable{
     public String getDescripcionCompleta() {
         return descripcionCompleta;
     }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setCantidadMax(int cantidadMax) {
+        this.cantidadMax = cantidadMax;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setDescripcionCompleta(String descripcionCompleta) {
+        this.descripcionCompleta = descripcionCompleta;
+    }
+
+    public void setDescripcionUso(String descripcionUso) {
+        this.descripcionUso = descripcionUso;
+    }
+
+    public void setIcono(String icono) {
+        this.icono = icono;
+    }
+    
     
     
 }

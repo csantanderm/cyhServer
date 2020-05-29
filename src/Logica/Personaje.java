@@ -71,11 +71,8 @@ public class Personaje implements Serializable{
         posicion=pos;
                 
         objetos = new ArrayList<StackObjeto>();
-        objetos.add(new StackObjeto(0,"Orbe curativo",StackObjeto.CONSUMIBLE,"Cura 1 de salud.","objetos/orbe_curativo.png"));
-        objetos.add(new StackObjeto(1,"Piel de wargo", StackObjeto.RECURSO,"Piel de pelo grueso.","objetos/piel_de_wargo.png"));
-        objetos.add(new StackObjeto(0,"Orbe curativo",StackObjeto.CONSUMIBLE,"Cura 1 de salud.","objetos/orbe_curativo.png"));
         habilidades = new ArrayList<Habilidad>();
-        habilidades.add(new Habilidad(0,"Pies ligeros",Habilidad.ESTRATEGICA,"Obtiene +1 de movimiento en este turno.aaa  soy asd skllals dooffooe asd asdjkhas asliasds dsf",3,"habilidades/pies_ligeros.png",0));
+        habilidades.add(new Habilidad(0,"Pies ligeros",Habilidad.ESTRATEGICA,"Obtiene +1 de movimiento en este turno.",3,"habilidades/pies_ligeros.png",0));
         
 //        habilidades.add(new Habilidad(1,"Doble ataque",Habilidad.PASIVA,"Si el ataque tiene exito, daña x2",2));
 //        habilidades.add(new Habilidad(3,"Caca3",Habilidad.OFENSIVA,"Avanza a una casilla y daña al enemigo.",3));
@@ -95,6 +92,22 @@ public class Personaje implements Serializable{
         logs = new ArrayList<Log>();
         
         
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public void setEstaVivo(boolean estaVivo) {
+        this.estaVivo = estaVivo;
+    }
+
+    public void setMov(int mov) {
+        this.mov = mov;
+    }
+
+    public void setAcciones(int acciones) {
+        this.acciones = acciones;
     }
 
     public String getIcono() {

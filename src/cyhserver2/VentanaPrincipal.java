@@ -7,6 +7,7 @@ package cyhserver2;
 
 import Logica.Clases;
 import Logica.CreadorLog;
+import Logica.CreadorStackObjeto;
 import Logica.Cronica;
 import Logica.Enemigo;
 import Logica.Habilidad;
@@ -149,16 +150,21 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable {
                 DataInputStream entrada = new DataInputStream(socket.getInputStream());
                 String mensaje = entrada.readUTF();
                 String [] desglose = mensaje.split(">>");
+                String [] argumentos;
                 switch(desglose[0]){
                     case "cronica":
                         areaLog.append("Personaje 1 pide Crónica inicial.\n");
                         crearCronica();
                         break;
                     case "mover":
-                        
-                        String [] argumentos = desglose[1].split(",");
+                        argumentos = desglose[1].split(",");
                         areaLog.append("Personaje "+argumentos[0]+" pide moverse a la posicion "+argumentos[1]+".\n");
                         moverPersonaje(argumentos[0],argumentos[1]);
+                        break;
+                    case "usarObjeto":
+                        argumentos = desglose[1].split(",");
+                        areaLog.append("Personaje "+argumentos[0]+" usa objeto "+argumentos[1]+".\n");
+                        usarObjeto(argumentos[0],argumentos[1]);
                 }    
             }
             
@@ -177,7 +183,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable {
             areaLog.append("Se envia la crónica inicial al personaje 1.\n");
             socket.close();
         } catch (IOException ex) {
-            areaLog.append("No se pudo enviar la cronica al personaje1.\n");
+            areaLog.append("No se pudo enviar la cronica al personaje 1.\n");
         }
         
     }
@@ -192,11 +198,39 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable {
                 cronica.getPersonajes().get(i).getLogs().add(log);
                 break;
             }
-        }
-        
-        enviarCronica();
-            
+        }   
+        enviarCronica();   
     }
+    
+    public void usarObjeto(String idPersonaje,String idObjeto){
+        int idPj = Integer.parseInt(idPersonaje);
+        int idObj = Integer.parseInt(idObjeto);
+        
+        
+        switch(idObj){
+            case CreadorStackObjeto.ORBE_CURATIVO:
+                for (int i=0;i<cronica.getPersonajes().size();i++){
+                    if (cronica.getPersonajes().get(i).getId()==idPj){
+                        for(int j =0; j<cronica.getPersonajes().get(i).getObjetos().size();j++){
+                            if (cronica.getPersonajes().get(i).getObjetos().get(j).getId()==idObj){
+                                cronica.getPersonajes().get(i).getObjetos().get(j).setCantidad(cronica.getPersonajes().get(i).getObjetos().get(j).getCantidad() -1);
+                                Log log = CreadorLog.personajeUsaObjeto(cronica.getPersonajes().get(i).getNombre(), cronica.getPersonajes().get(i).getObjetos().get(j).getNombre(),true);
+                                cronica.getPersonajes().get(i).getLogs().add(log);
+                                break;
+                            }
+                        }
+                        cronica.getPersonajes().get(i).setSalud(cronica.getPersonajes().get(i).getSalud()+3);
+                        cronica.getPersonajes().get(i).setAcciones(cronica.getPersonajes().get(i).getAcciones()-1);
+                        
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+        enviarCronica();
+    }
+            
     
     public void crearCronica(){
         ArrayList<Enemigo> enemigos = new ArrayList();
@@ -206,7 +240,13 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable {
         personajes.add(new Personaje(2,"Caztiel",Clases.ACROBATA,16,2,4,2,7,1,2,Posiciones.N,"emblema_acrobata.png"));
         personajes.add(new Personaje(3,"Eilien",Clases.GUARDIA,16,2,4,2,7,1,2,Posiciones.N2,"emblema_guardia.png"));
         personajes.add(new Personaje(4,"Luna",Clases.ESTRATEGA,16,2,4,2,7,1,2,Posiciones.C,"emblema_estratega.png"));
-
+        
+        personajes.get(0).getObjetos().add(CreadorStackObjeto.crearStack(CreadorStackObjeto.ORBE_CURATIVO,9));
+        personajes.get(0).getObjetos().add(CreadorStackObjeto.crearStack(CreadorStackObjeto.PIEL_WARGO,3));
+        personajes.get(0).getObjetos().add(CreadorStackObjeto.crearStack(CreadorStackObjeto.PLASMA_WARGO,6));
+        personajes.get(0).getObjetos().add(CreadorStackObjeto.crearStack(CreadorStackObjeto.PROTEINA,1));
+        personajes.get(0).getObjetos().add(CreadorStackObjeto.crearStack(CreadorStackObjeto.CAL_VIVA,7));
+        personajes.get(0).getObjetos().add(CreadorStackObjeto.crearStack(CreadorStackObjeto.ANIMA_DE_LA_IRA,1));
         cronica = new Cronica(personajes, enemigos, NieblasTerritorios.CODIGOBLANCO, NieblasTerritorios.TERRITORIO_BOSQUENEGRO);
         
         Log log = CreadorLog.crearBienvenida(cronica.getNiebla(), cronica.getTerritorio(), 1);
