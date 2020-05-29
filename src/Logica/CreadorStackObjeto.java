@@ -65,6 +65,7 @@ public class CreadorStackObjeto {
                 nuevo.setDescripcionCompleta("Alimento de origen animal. Necesita ser cocinado para no causar enfermedades.");
                 nuevo.setCantidadMax(5);
                 nuevo.setCantidad(cantidad);
+                break;
             case CAL_VIVA:
                 nuevo.setId(id);
                 nuevo.setNombre("Cal viva");
@@ -74,6 +75,7 @@ public class CreadorStackObjeto {
                 nuevo.setDescripcionCompleta("Cal extraída de huesos. Usada para la confección de elíxires.");
                 nuevo.setCantidadMax(5);
                 nuevo.setCantidad(cantidad);
+                break;
             case ANIMA_DE_LA_IRA:
                 nuevo.setId(id);
                 nuevo.setNombre("Ánima de la ira");
@@ -83,6 +85,7 @@ public class CreadorStackObjeto {
                 nuevo.setDescripcionCompleta("Espiritu residual de un wargo. Se utiliza en el sellado de habilidades.");
                 nuevo.setCantidadMax(3);
                 nuevo.setCantidad(cantidad);
+                break;
         }
         return nuevo;
     }
